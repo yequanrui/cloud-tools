@@ -8,14 +8,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "devui-theme": "0.0.2",
+    "devui-theme": "^0.0.2",
+    "sass": "^1.52.3",
     "vue": "^3.2.25",
-    "vue-devui": "^1.0.0-rc.5"
+    "vue-devui": "1.0.0-rc.11"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.3.1",
+    "@vitejs/plugin-vue": "^2.3.3",
     "typescript": "^4.5.4",
-    "vite": "^2.9.5",
+    "vite": "^2.9.9",
     "vue-tsc": "^0.34.7"
   }
 }

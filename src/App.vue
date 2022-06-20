@@ -1,7 +1,38 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, watch } from 'vue';
+import {
+  ThemeServiceInit,
+  infinityTheme,
+  provenceTheme,
+  sweetTheme,
+  deepTheme,
+  galaxyTheme,
+} from 'devui-theme';
+import HelloWorld from './components/HelloWorld.vue';
+
+const themeList = ref([
+  { value: 'infinity-theme', label: '无限' },
+  { value: 'sweet-theme', label: '蜜糖' },
+  { value: 'provence-theme', label: '紫罗兰' },
+  { value: 'deep-theme', label: '深邃夜空' },
+  { value: 'galaxy-theme', label: '追光' },
+]);
+// 为了方便根据主题名称获取主题对象，我们定义一个主题映射表
+const THEME_MAP: any = {
+  'infinity-theme': infinityTheme,
+  'sweet-theme': sweetTheme,
+  'provence-theme': provenceTheme,
+  'deep-theme': deepTheme,
+  'galaxy-theme': galaxyTheme,
+};
+const currentTheme = ref(localStorage.getItem('user-custom-theme') || themeList.value[0].value);
+// 初始化主题
+const themeService = ThemeServiceInit(THEME_MAP, currentTheme.value);
+// 主题切换
+watch(currentTheme, (newVal) => {
+  // 调用applyTheme方法切换主题
+  themeService.applyTheme(THEME_MAP[newVal]);
+});
 </script>
 
 <template>
@@ -23,13 +54,33 @@ import HelloWorld from './components/HelloWorld.vue'
           <span>面包屑</span>
         </d-breadcrumb-item>
       </d-breadcrumb>
-      <div class="inner-content"></div>
+      <div class="inner-content">
+        <d-radio-group direction="row" v-model="currentTheme">
+          <d-radio v-for="item in themeList" :key="item.value" :value="item.value" :name="item.label">
+            {{ item.label }}
+          </d-radio>
+        </d-radio-group>
+      </div>
     </d-content>
     <d-footer class="dfooter-1">footer</d-footer>
   </d-layout>
 </template>
 
-<style>
+<style lang="scss">
+@import 'devui-theme/styles-var/devui-var';
+
+body {
+  background-color: $devui-base-bg;
+  margin: 0;
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+
 .dheader-1 {
   text-align: left;
   position: relative;
