@@ -8,7 +8,6 @@ import {
   deepTheme,
   galaxyTheme,
 } from 'devui-theme';
-import HelloWorld from './components/HelloWorld.vue';
 
 const themeList = ref([
   { value: 'infinity-theme', label: '无限' },
