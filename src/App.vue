@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import {
   ThemeServiceInit,
+  deepTheme,
+  galaxyTheme,
   infinityTheme,
   provenceTheme,
   sweetTheme,
-  deepTheme,
-  galaxyTheme,
 } from 'devui-theme';
+import { ref, watch } from 'vue';
 
 const themeList = ref([
   { value: 'infinity-theme', label: '无限' },
@@ -30,7 +30,7 @@ const themeService = ThemeServiceInit(THEME_MAP, currentTheme.value);
 // 主题切换
 watch(currentTheme, (newVal) => {
   // 调用applyTheme方法切换主题
-  themeService.applyTheme(THEME_MAP[newVal]);
+  themeService?.applyTheme(THEME_MAP[newVal]);
 });
 </script>
 
